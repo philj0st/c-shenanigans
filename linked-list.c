@@ -19,27 +19,43 @@ Pair* cons(int value, Pair* next){
   return pair;
 };
 
-//create list from variable arguments and return ptr to head of the list
-Pair* list(int first, ...){
-  va_list ap;
-  va_start(ap, first);
-
-  int p2 = va_arg(ap, int);
-  va_end(ap);
-
-  Pair* pair = malloc(sizeof(Pair));
-  pair->value = p2;
-  pair->next = NULL;
-
-  return pair;
-};
+// //create list from variable arguments and return ptr to head of the list
+// Pair* list(int first, ...){
+//
+//   Pair* head = malloc(sizeof(Pair));
+//   head->value = first;
+//
+//   va_list ap;
+//   // first is the last known fixed argument being passed to the function (the argument before the ellipsis).
+//   va_start(ap, first);
+//   int i;
+//   while (i = va_arg(ap, int)) {
+//     printf("%d\n", i);
+//   }
+//
+//   // Expands to the next argument in the paramater list of the function with type int
+//   int p2 = va_arg(ap, int);
+//
+//   // must be called to close the whole macro thingy
+//   va_end(ap);
+//
+//   Pair* second = malloc(sizeof(Pair));
+//   second->value = p2;
+//   second->next = NULL;
+//
+//   head->next = second;
+//
+//   return head;
+// };
 
 //traverse the list and print every value of every pair
 void printl(Pair* head){
+  // print the value of the current cell
   printf("%d\n", head->value);
   if (head->next == NULL){
     //do nothing
   } else {
+    // call printl recursively on the rest of the list
     printl(head->next);
   }
 }
@@ -47,7 +63,5 @@ void printl(Pair* head){
 int main(void){
 
   Pair* head = cons(2, cons(4, cons(12, NULL)));
-  // Pair* head = list(1, 2, 3);
-  // printf("value is %d", head->value); // 2
   printl(head);
 }
