@@ -69,6 +69,17 @@ Pair* cons(int value, Pair* next){
 //   return head;
 // };
 
+Pair* car(Pair* list){
+  // cut the rest of the list off
+  list->next = NULL;
+  // and return the first element
+  return list;
+}
+
+Pair* cdr(Pair* list){
+  return list->next;
+}
+
 //traverse the list and print every value of every pair
 void printl(Pair* head){
   // print the value of the current cell
@@ -83,8 +94,9 @@ void printl(Pair* head){
 
 int main(void){
 
-  Pair* head = cons(2, cons(4, cons(12, NULL)));
-  printl(head);
+  Pair* newList = cons(2, cons(4, cons(12, NULL)));
+  printl(newList);
+  printl(car(cdr(newList)));
 
   // Pair* head = list(2, 1 ,2);
   // // printl(head);
