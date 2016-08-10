@@ -22,11 +22,24 @@ int main(int argc, char const *argv[]) {
   printf("ints[2] at %lu is %lu\n", &ints[1]+4, ints[2]);
 
   // try to access an index out of range
-  printf("ints[3] is %lu\n", ints[3]);
-  printf("ints[4] is %lu\n", ints[4]);
+  printf("ints[3] is %d\n", ints[3]);
+  printf("ints[4] is %d\n", ints[4]);
 
   // save address of the third as seperate variable
   int* third = &ints[3];
   printf("%d\n", *third);
+
+  // pass pointer to array
+  int fifth(int *list[]){
+    return list[4];
+  }
+
+  // array initializer
+  const int *list[] = {1,1,1,1,555};
+  printf("i can use array initializer: %d", fifth(&list));
+
+  // interesting behaviour
+  printf("but i cant use it in function calls: %d", fifth( (int []){2,2,3,4,5}));
+
   return 0;
 }
