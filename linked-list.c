@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
+// #include <stdarg.h>
 
 typedef struct Pair Pair;
 
@@ -70,14 +70,27 @@ Pair* cons(int value, Pair* next){
 // };
 
 Pair* car(Pair* list){
+  // create a new pair otherwise the data passed as parameter gets mutated
+  Pair* pair = malloc(sizeof(Pair));
+  // assignment by copy of by reference?
+  pair->value = list->value;
   // cut the rest of the list off
-  list->next = NULL;
+  pair->next = NULL;
   // and return the first element
-  return list;
+  return pair;
 }
 
 Pair* cdr(Pair* list){
   return list->next;
+}
+
+// the first n items from the list will be dropped
+Pair* drop(Pair* list, int n){
+  if (n == 0){
+    return list;
+  } else {
+    return drop(cdr(list), n-1);
+  }
 }
 
 //traverse the list and print every value of every pair
@@ -94,9 +107,10 @@ void printl(Pair* head){
 
 int main(void){
 
-  Pair* newList = cons(2, cons(4, cons(12, NULL)));
-  printl(newList);
-  printl(car(cdr(newList)));
+  Pair* newList = cons(2, cons(4, cons(12, cons(24, NULL))));
+  // printl(car(cdr(newList)));
+  // printl(newList);
+  printl(drop(newList, 3));
 
   // Pair* head = list(2, 1 ,2);
   // // printl(head);
